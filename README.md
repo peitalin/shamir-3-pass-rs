@@ -5,14 +5,6 @@ Rust implementation of the Shamir 3-pass (commutative encryption) protocol, desi
 Shamir's 3-pass protocol is a *commutative lock* over a symmetric key (KEK) using modular exponentiation.
 - Encrypts application data with `ChaCha20Poly1305`; the KEK is turned into an AEAD key via HKDF-SHA256.
 
-## Security notes
-
-- This crate has not been professionally audited. Treat it as "use at your own risk", especially in high-assurance environments.
-- `Shamir3Pass::new()` validates the *size* of `p`, but does not currently prove `p` is prime; generate `p` with `generate_shamir_p(_b64u)` or validate your own modulus before constructing `Shamir3Pass`.
-- Big integer arithmetic (`num-bigint`) is not constant-time; do not assume resistance to timing/side-channel attacks.
-- If you expose `add_lock`/`remove_lock` operations to untrusted inputs while using long-lived exponents, consider range/subgroup validation and parameter choices (e.g., a “safe prime” construction) to reduce the risk of small-subgroup style attacks.
-
-If you believe you found a security issue, see `SECURITY.md`.
 
 ## Installation
 
@@ -107,6 +99,15 @@ cargo build --target wasm32-unknown-unknown
 ```sh
 cargo test
 ```
+
+## Security notes
+
+- This crate has not been professionally audited. Treat it as "use at your own risk", especially in high-assurance environments.
+- `Shamir3Pass::new()` validates the *size* of `p`, but does not currently prove `p` is prime; generate `p` with `generate_shamir_p(_b64u)` or validate your own modulus before constructing `Shamir3Pass`.
+- Big integer arithmetic (`num-bigint`) is not constant-time; do not assume resistance to timing/side-channel attacks.
+- If you expose `add_lock`/`remove_lock` operations to untrusted inputs while using long-lived exponents, consider range/subgroup validation and parameter choices (e.g., a “safe prime” construction) to reduce the risk of small-subgroup style attacks.
+
+If you believe you found a security issue, see `SECURITY.md`.
 
 ## License
 
