@@ -65,7 +65,7 @@ Shamir 3-pass uses commutative exponentiation over a shared public modulus `p`:
 - Remove your lock: `x = (x')^d mod p`, where `e*d ≡ 1 (mod p-1)`
 - Locks commute: `(x^e_c)^e_s = (x^e_s)^e_c`
 
-This lets a server store ciphertext plus a KEK that remains “server-locked” (`kek_s`), while the client can later recover the KEK without revealing the plaintext to the server.
+This lets a client (e.g. browser) store a server-encrypted ciphertext that remains "server-locked" (with `kek_s`), which the client can later send to the server to recover the secret without revealing the plaintext secret to the server.
 
 ## Encoding for transport / storage
 
